@@ -12,6 +12,9 @@ points:
       anchor:
         rotate: 5
       columns:
+        outer:
+          rows.bottom.skip: true
+          rows.top.skip: true
         pinky:
         ring:
           key.splay: -5

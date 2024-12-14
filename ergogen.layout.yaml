@@ -3,12 +3,15 @@ units:
   kx: cx
   ky: cy
   # Padding Variables
-  px: kx + 2
-  py: ky + 2
+  px: kx + 4
+  py: ky + 4
 
 points:
   zones:
     matrix:
+      key:
+        padding: 1ky
+        spread: 1kx
       anchor:
         rotate: 5
       columns:
@@ -33,20 +36,63 @@ points:
     thumbfan:
       anchor:
         ref: matrix_inner_bottom
-        shift: [-7, -19]
+        shift: [-22, -23]
       columns:
         near:
         home:
-          key.spread: 21.25
-          key.splay: 0
-          key.origin: [-11.75, -9]
         far:
-          key.spread: 21.25
-          key.splay: 0
-          key.origin: [-9.5, -9]
+          key:
+            width: 1.5kx
       rows:
         thumb:
   rotate: -20
-  mirror:
-    ref: matrix_pinky_home
-    distance: 223.7529778
+
+outlines:
+  raw:
+    - what: rectangle
+      where: true
+      size: [px, py]
+  
+  keys:
+    - what: rectangle
+      where: true
+      size: [kx - 0.5, ky - 0.5]
+
+  board:
+    - what: polygon
+      operation: stack
+      fillet: 2
+      points:
+      - ref: matrix_outer_home
+        shift: [-0.5px, -0.5py]
+      - ref: matrix_outer_home
+        shift: [-0.5px, 0.5py]
+      - ref: matrix_pinky_top
+        shift: [-0.5px, 0.5py]
+      - ref: matrix_ring_top
+        shift: [-0.5px, 0.5py]
+      - ref: matrix_middle_top
+        shift: [-0.5px, 0.5py]
+      - ref: matrix_middle_top
+        shift: [0.5px, 0.5py]
+      # - ref: matrix_index_top
+      #   shift: [0.5px, 0.5py]
+      - ref: matrix_inner_top
+        shift: [0.5px, 0.5py]
+      - ref: thumbfan_far_thumb
+        shift: [0.5px, 0.5py]
+      - ref: thumbfan_far_thumb
+        shift: [0.5px, -0.5py]
+      - ref: thumbfan_far_thumb
+        shift: [-0.5px, -0.5py]
+      - ref: thumbfan_near_thumb
+        shift: [0.5px, -0.5py]
+      - ref: thumbfan_near_thumb
+        shift: [-0.5px, -0.5py]
+      - ref: matrix_pinky_bottom
+        shift: [-0.5px, -0.5py]
+
+  combo:
+    - name: board
+    - operation: subtract
+      name: keys

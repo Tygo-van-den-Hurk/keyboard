@@ -14,6 +14,7 @@ points:
         spread: 1kx
       anchor:
         rotate: 5
+        shift: [100, -100]
       columns:
         outer:
           rows.bottom.skip: true
@@ -96,3 +97,9 @@ outlines:
     - name: board
     - operation: subtract
       name: keys
+
+pcbs:
+  production:
+    outlines:
+      main:
+        outline: board

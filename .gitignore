@@ -2,4 +2,8 @@ node_modules
 ergogen/output
 ergogen/kicad/gerber
 zmk/build
+
+# Kicad 
 *_autosave*
+fp-info-cache
+ergogen/kicad/*-backups

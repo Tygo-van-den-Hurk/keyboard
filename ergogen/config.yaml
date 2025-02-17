@@ -5,6 +5,12 @@
 X-common:
   keyboard.name: &X-Common-name "Version: v1.0.0"
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Meta ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+
+meta:
+    version: "v1.0.0"
+    author: "\"Tygo van den Hurk\""
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Units ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
 units:
@@ -149,11 +155,13 @@ cases.production:
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ PCBs ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
 pcbs.production:
+
   outlines:
     main.outline: board
     keycaps:
       outline: keys
       layer: Eco1.User
+
   footprints:
     diode:
       what: sod-123w

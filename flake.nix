@@ -17,7 +17,7 @@
 
       devShell = pkgs.mkShell {
         
-        buildInputs = with pkgs; [ kicad nodejs_22 gnumake ];
+        buildInputs = (with pkgs; [ kicad nodejs_22 gnumake ]); # ++ (import pkgs.callPackage ./ergogen.nix);
 
         shellHook = (''
           # if the terminal supports color.

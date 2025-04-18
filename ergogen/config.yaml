@@ -3,7 +3,7 @@
 ## This file is a config file from which `ergogen` wil generate the PBCs, SVGs etc. I need those to build my keyboard.
 ##
 X-common:
-  keyboard.name: &X-Common-name "Version: v1.0.0"
+  keyboard.name: &X-Common-name "Snowflake: v1.0.0"
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Meta ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 

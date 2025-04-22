@@ -1,10 +1,16 @@
-node_modules
-ergogen/output
-ergogen/kicad/gerber
-zmk/build
+
+# Nix
+**/result
+
+# NPM
+**/node_modules
+
+# Ergogen
+**/output
 
 # Kicad 
-*_autosave*
-fp-info-cache
-ergogen/kicad/*-backups
-ergogen/kicad/\~*
+**/*_autosave*
+**/fp-info-cache
+**/*-backups
+**/\~*
+**/*.zip

@@ -14,6 +14,12 @@
 
     in rec {
 
+      # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Nix Flake Check ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+
+      checks = self.packages.${system};
+
+      # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Nix Develop ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+
       devShell = pkgs.mkShell {
         
         buildInputs = (
@@ -31,13 +37,39 @@
             echo "Started a Node Development Shell powered by Nix."
             echo "Using $(node --version)."
             export PS1="(Dev-Shell) $PS1"
-          fi''
+          fi
+          
+          unset shellHook
+          unset buildInputs
+          ''
         );
       };
 
+      # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Nix Run ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+
+      apps = {
+        
+        update-kicad-pcb = {
+          type = "app";
+          program = builtins.toString (pkgs.writeShellScript "update-kicad-pcb" ''
+            set -e
+            FLAKE_ROOT="$(git rev-parse --show-toplevel)"
+            mkdir $FLAKE_ROOT/hardware/kicad
+            cp ${self.packages.${system}.pcbs}/* $FLAKE_ROOT/hardware/kicad --force
+          '');
+        };
+
+      };
+
+      # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Nix Build ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+
       packages = {
 
-        pcb = pkgs.stdenv.mkDerivation rec {
+        default = self.packages.${system}.hardware;
+
+        #| Hardware
+
+        hardware = pkgs.stdenv.mkDerivation rec {
           name = "pcb";
           src = ./hardware;
 
@@ -52,11 +84,70 @@
           installPhase = ''
             runHook preInstall
 
-            cp output/pcbs/production.kicad_pcb $out
+            mkdir --parents $out
+            cp --recursive output/* $out
             
             runHook postInstall
           '';
         };
+
+        pcbs = pkgs.stdenv.mkDerivation rec {
+          name = "pcb";
+          src = ./hardware;
+
+          installPhase = ''
+            runHook preInstall
+
+            mkdir --parents $out
+            cp --recursive ${self.packages.${system}.hardware}/pcbs/* $out
+            
+            runHook postInstall
+          '';
+        };
+
+        outlines = pkgs.stdenv.mkDerivation rec {
+          name = "pcb";
+          src = ./hardware;
+
+          installPhase = ''
+            runHook preInstall
+
+            mkdir --parents $out
+            cp --recursive ${self.packages.${system}.hardware}/outlines/* $out
+            
+            runHook postInstall
+          '';
+        };
+
+        points = pkgs.stdenv.mkDerivation rec {
+          name = "pcb";
+          src = ./hardware;
+
+          installPhase = ''
+            runHook preInstall
+
+            mkdir --parents $out
+            cp --recursive ${self.packages.${system}.hardware}/points/* $out
+            
+            runHook postInstall
+          '';
+        };
+
+        cases = pkgs.stdenv.mkDerivation rec {
+          name = "pcb";
+          src = ./hardware;
+
+          installPhase = ''
+            runHook preInstall
+
+            mkdir --parents $out
+            cp --recursive ${self.packages.${system}.hardware}/cases/* $out
+            
+            runHook postInstall
+          '';
+        };
+
+        #| Dependencies
 
         ergogen = pkgs.buildNpmPackage {
           pname = "ergogen";
@@ -92,7 +183,7 @@
         };
       };
 
-
+      # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
     }
   );
 }

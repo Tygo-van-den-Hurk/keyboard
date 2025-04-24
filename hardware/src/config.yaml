@@ -3,13 +3,13 @@
 ## This file is a config file from which `ergogen` wil generate the PBCs, SVGs etc. I need those to build my keyboard.
 ##
 X-common:
-  keyboard.name: &X-Common-name "Snowflake: v1.0.0"
+  keyboard.name: &X-Common-name "Snowflake: v1.0.1"
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Meta ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
 meta:
-    version: "v1.0.0"
-    author: "\"Tygo van den Hurk\""
+  version: "v1.0.1"
+  author: "\"Tygo van den Hurk\""
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Units ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
@@ -178,6 +178,7 @@ pcbs.production:
       params:
         keycaps: true
         hotswap: true
+        reverse: true
         from: "{{col_net}}"
         to: "{{name}}"
 

@@ -22,20 +22,13 @@
 
       devShell = pkgs.mkShell {
         
-        buildInputs = (
-          (with pkgs; [ kicad nodejs_22 gnumake freecad ]) ++ 
-          (with self.packages.${system}; [ ergogen ])
-        );
+        buildInputs = ( (with pkgs; [ kicad ]) ++ (with self.packages.${system}; [ ergogen ]) );
 
         shellHook = (''
           # if the terminal supports color.
           if [[ -n "$(tput colors)" && "$(tput colors)" -gt 2 ]]; then
-            echo -e "\033[1;32mStarted\033[0m a \033[1;31mNode\033[0m Development Shell powered by \033[1;34mNix\033[0m."
-            echo -e "Using \033[1;33m$(node --version)\033[00m."
             export PS1="(\033[1m\033[35mDev-Shell\033[0m) $PS1"
           else 
-            echo "Started a Node Development Shell powered by Nix."
-            echo "Using $(node --version)."
             export PS1="(Dev-Shell) $PS1"
           fi
           
@@ -49,13 +42,23 @@
 
       apps = {
         
-        update-kicad-pcb = {
+        update-pcb = {
           type = "app";
-          program = builtins.toString (pkgs.writeShellScript "update-kicad-pcb" ''
+          program = builtins.toString (pkgs.writeShellScript "update-pcb" ''
             set -e
-            FLAKE_ROOT="$(git rev-parse --show-toplevel)"
-            mkdir $FLAKE_ROOT/hardware/kicad
-            cp ${self.packages.${system}.pcbs}/* $FLAKE_ROOT/hardware/kicad --force
+            directory="$(git rev-parse --show-toplevel)/hardware/kicad/"
+            [ -d $directory ] && mkdir --parents $directory
+            cp --force ${self.packages.${system}.pcbs}/* $directory
+          '');
+        };
+
+        watch-pcb = {
+          type = "app";
+          program = builtins.toString (pkgs.writeShellScript "watch-pcb" ''
+            set -e
+            ${pkgs.nodemon}/bin/nodemon \
+              --exec "nix run .#update-pcb" \
+              --watch "./hardware/src/**/*.*"
           '');
         };
 
@@ -64,8 +67,6 @@
       # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Nix Build ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
       packages = {
-
-        default = self.packages.${system}.hardware;
 
         #| Hardware
 

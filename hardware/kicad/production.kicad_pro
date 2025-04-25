@@ -372,10 +372,6 @@
       },
       {
         "netclass": "Default",
-        "pattern": "P19"
-      },
-      {
-        "netclass": "Default",
         "pattern": "RAW"
       },
       {
@@ -389,6 +385,10 @@
       {
         "netclass": "Default",
         "pattern": "VCC"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "P19"
       },
       {
         "netclass": "Default",

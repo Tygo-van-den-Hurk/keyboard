@@ -24,6 +24,7 @@ units:
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Points ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
 points:
+  rotate: 0
   zones:
     matrix:
       key:
@@ -66,16 +67,15 @@ points:
         shift: [-22, -23]
       columns:
         near.key:
-          col_net: P21
+          col_net: P9
         home.key:
-          col_net: P20
+          col_net: P21
         far.key:
-          col_net: P19
+          col_net: P20
           width: 1.5kx
       rows:
         thumb:
           row_net: P5
-  rotate: -20
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Outlines ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
@@ -182,6 +182,9 @@ pcbs.production:
         from: "{{col_net}}"
         to: "{{name}}"
 
+
+    #` Micro controller
+
     promicro:
       what: promicro_pretty
       where:
@@ -190,21 +193,27 @@ pcbs.production:
         shift: [22, 6.5]
         rotate: -90
 
-    wuerth-434121025816: # Reset switch
+
+    #` Reset switch
+
+    wuerth-434121025816: 
       what: wuerth-434121025816
       where:
         ref: matrix_inner_home
         shift: [25, -21]
-        rotate: 0
+        rotate: 180
       params:
         r1: RST
         r2: GND
+
+
+    #` Text
 
     front_text: &text
       what: text
       where: &textWhere
         ref: matrix_pinky_bottom
-        shift: [12, -15]
+        shift: [15, -16]
         rotate: -19
       params: &textParams
         text: *X-Common-name
@@ -213,27 +222,17 @@ pcbs.production:
       <<: *text
       where:
         <<: *textWhere
-        shift: [27, -20]
+        shift: [27.5, -20.5]
         rotate: -19
       params:
         <<: *textParams
         layer: B.SilkS
         justify: left mirror
-    safeText:
-      <<: *text
-      what: keepout
-      params:
-        points:
-          - x: -0.5
-            y: -2
-          - x: 15.5
-            y: -2
-          - x: 15.5
-            y: 2
-          - x: -0.5
-            y: 2
 
-    connector: # TRRS Connector
+
+    #` TRRS Connector
+
+    connector: 
       what: trrs
       params:
         reverse: true
@@ -247,37 +246,47 @@ pcbs.production:
         shift: [30, 0]
         rotate: -90
 
-    nix-piece-1: &icon # orange
+
+    #` NixOS Logo
+    # see: https://raw.githubusercontent.com/Tygo-van-den-Hurk/keyboard/refs/tags/v1.0.0/ergogen/images/nix.svg to 
+    # know what color nix piece refers to what. 
+    nix-piece-1: &icon #| Orange
       what: nix-piece
-      where:
-        shift: [80, -151]
-        rotate: -34
       params:
         scale: 0.03
-    nix-piece-2: # yellow
+      where:
+        ref: matrix_inner_home
+        shift: [-66.1, -41.83]
+        rotate: -14.4
+    nix-piece-2: #| Yellow
       <<: *icon
       where:
-        shift: [92.5, -168.2]
-        rotate: 26
-    nix-piece-3: # green
+        ref: matrix_inner_home
+        shift: [-49.16, -54.16]
+        rotate: 45.6
+    nix-piece-3: #| Green
       <<: *icon
       where:
-        shift: [113.95, -166.09]
-        rotate: 86
-    nix-piece-4: # blue
+        ref: matrix_inner_home
+        shift: [-30, -45.65]
+        rotate: 105.60
+    nix-piece-4: #| Blue
       <<: *icon
       where:
-        shift: [123, -146.5]
-        rotate: 146
-    nix-piece-5: # purple
+        ref: matrix_inner_home
+        shift: [-28, -25]
+        rotate: 165.60
+    nix-piece-5: #| Purple
       <<: *icon
       where:
-        shift: [110.5, -129.48]
-        rotate: 206
-    nix-piece-6: # red
+        ref: matrix_inner_home
+        shift: [-45, -12.6]
+        rotate: 225.60
+    nix-piece-6: #| Red
       <<: *icon
       where:
-        shift: [89, -131.5]
-        rotate: 266
+        ref: matrix_inner_home
+        shift: [-64, -21.11]
+        rotate: 285.60
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #

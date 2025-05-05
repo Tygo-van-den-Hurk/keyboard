@@ -45,40 +45,42 @@
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Nix Develop ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
-        devShells = let
+        devShells =
+          let
 
-          shellHook = ''
-            # if the terminal supports color.
-            if [[ -n "$(tput colors)" && "$(tput colors)" -gt 2 ]]; then
-              export PS1="(\033[1m\033[35mDev-Shell\033[0m) $PS1"
-            else
-              export PS1="(Dev-Shell) $PS1"
-            fi
+            shellHook = ''
+              # if the terminal supports color.
+              if [[ -n "$(tput colors)" && "$(tput colors)" -gt 2 ]]; then
+                export PS1="(\033[1m\033[35mDev-Shell\033[0m) $PS1"
+              else
+                export PS1="(Dev-Shell) $PS1"
+              fi
 
-            unset shellHook
-            unset buildInputs
-          '';
+              unset shellHook
+              unset buildInputs
+            '';
 
-          hardwareBuildInputs = (with pkgs; [ kicad ]) ++ (with self.packages.${system}; [ ergogen ]);
-          softwareBuildInputs = (with pkgs; [ ]);
+            hardwareBuildInputs = (with pkgs; [ kicad ]) ++ (with self.packages.${system}; [ ergogen ]);
+            softwareBuildInputs = with pkgs; [ ];
 
-        in rec {
+          in
+          rec {
 
-          default = pkgs.mkShell {
-            buildInputs = (hardwareBuildInputs ++ softwareBuildInputs);
-            inherit shellHook;
+            default = pkgs.mkShell {
+              buildInputs = hardwareBuildInputs ++ softwareBuildInputs;
+              inherit shellHook;
+            };
+
+            hardware = pkgs.mkShell {
+              buildInputs = hardwareBuildInputs;
+              inherit shellHook;
+            };
+
+            software = pkgs.mkShell {
+              buildInputs = softwareBuildInputs;
+              inherit shellHook;
+            };
           };
-
-          hardware = pkgs.mkShell {
-            buildInputs = hardwareBuildInputs;
-            inherit shellHook;
-          };
-
-          software = pkgs.mkShell {
-            buildInputs = softwareBuildInputs;
-            inherit shellHook;
-          };
-        };
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Nix Run ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 

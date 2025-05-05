@@ -1,4 +1,4 @@
-> This repository will be used for making of my first custom keyboard. 
+> This repository will be used for making of my first custom keyboard.
 
 <br>
 <center>
@@ -50,8 +50,7 @@
   - [Overview](#overview)
   - [Credits](#credits)
 
-
-## Overview 
+## Overview
 
 So this repository is for the journey of me making my first keyboard: _Snowflake_. I wanted a keyboard that works for me, I wanted something that I could take with me anywhere and would work the way I designed it to do. This also was a good excuse to learn about keyboards which is something I've wanted to do for a while now.
 

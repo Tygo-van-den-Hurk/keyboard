@@ -14,7 +14,7 @@
 
 ## Overview
 
-For the generating the files we need for the hardware we'll be using [ergogen](https://github.com/ergogen/ergogen). [Ergogen](https://github.com/ergogen/ergogen) is a program that allows you to build keyboards from a YAML config file. 
+For the generating the files we need for the hardware we'll be using [ergogen](https://github.com/ergogen/ergogen). [Ergogen](https://github.com/ergogen/ergogen) is a program that allows you to build keyboards from a YAML config file.
 
 ## Kicad
 
@@ -63,6 +63,6 @@ If you need any footprint that this repository is missing, you can find it's Jav
 
 Here are the components I used for my keyboard:
 
-- Choc key switches 
+- Choc key switches
 - a `pro micro` micro controller
 - my self made PCB

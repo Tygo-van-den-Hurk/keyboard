@@ -66,3 +66,5 @@ This code is written by, or using the help of:
 - [@Narkoleptika](https://github.com/Narkoleptika) for providing the pro micro footprint and setting me up with a template.
 - [@RajuBuddharaju](https://github.com/RajuBuddharaju) for helping me realise every part of this keyboard.
 - [@Tygo-van-den-Hurk](https://github.com/Tygo-van-den-Hurk)
+
+To see how to start or develop see [CONTRIBUTING.md](./CONTRIBUTING.md).

@@ -57,7 +57,7 @@ So this repository is for the journey of me making my first keyboard: _Snowflake
 
 ## Documentation
 
-There are two parts to this journey: [hardware](./docs/hardware/README.md), and [software](./docs/software/README.md). You can learn more in their respective documentation submodules. If you need to know anything else and it's not [in the docs](./docs/README.md) you can open a issue or even PR and I'll fix/add it.
+There are two parts to this journey: [hardware](./hardware/README.md), and [software](./software/README.md). You can learn more in their respective documentation submodules. If you need to know anything else and it's not in the docs you can open a issue or even PR and I'll fix/add it.
 
 ## Credits
 

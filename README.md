@@ -48,13 +48,16 @@
 
 - [Keyboard](#keyboard)
   - [Overview](#overview)
+  - [Documentation](#documentation)
   - [Credits](#credits)
 
 ## Overview
 
 So this repository is for the journey of me making my first keyboard: _Snowflake_. I wanted a keyboard that works for me, I wanted something that I could take with me anywhere and would work the way I designed it to do. This also was a good excuse to learn about keyboards which is something I've wanted to do for a while now.
 
-There are two parts to this journey: [hardware](./hardware/README.md), and [software](./software/README.md). You can learn more in their respective submodules.
+## Documentation
+
+There are two parts to this journey: [hardware](./docs/hardware/README.md), and [software](./docs/software/README.md). You can learn more in their respective documentation submodules. If you need to know anything else and it's not [in the docs](./docs/README.md) you can open a issue or even PR and I'll fix/add it.
 
 ## Credits
 

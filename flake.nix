@@ -45,9 +45,7 @@
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Nix Develop ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
-        devShells.default = pkgs.mkShell {
-
-          buildInputs = (with pkgs; [ kicad ]) ++ (with self.packages.${system}; [ ergogen ]);
+        devShells = let
 
           shellHook = ''
             # if the terminal supports color.
@@ -60,6 +58,26 @@
             unset shellHook
             unset buildInputs
           '';
+
+          hardwareBuildInputs = (with pkgs; [ kicad ]) ++ (with self.packages.${system}; [ ergogen ]);
+          softwareBuildInputs = (with pkgs; [ ]);
+
+        in rec {
+
+          default = pkgs.mkShell {
+            buildInputs = (hardwareBuildInputs ++ softwareBuildInputs);
+            inherit shellHook;
+          };
+
+          hardware = pkgs.mkShell {
+            buildInputs = hardwareBuildInputs;
+            inherit shellHook;
+          };
+
+          software = pkgs.mkShell {
+            buildInputs = softwareBuildInputs;
+            inherit shellHook;
+          };
         };
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Nix Run ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #

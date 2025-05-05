@@ -1,3 +1,7 @@
+# Drill and Gerber files
+**/*.gbr
+**/*.gbrjob
+**/*.drl
 
 # direnv
 **/.direnv

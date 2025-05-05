@@ -1,8 +1,8 @@
 module.exports = {
-    params: {
-        points: []
-    },
-    body: p => `
+  params: {
+    points: [],
+  },
+  body: (p) => `
         (zone
             (layers "F&B.Cu")
             (hatch edge 0.5)
@@ -13,13 +13,11 @@ module.exports = {
             (fill (thermal_gap 0.5) (thermal_bridge_width 0.5))
             (polygon
                 (pts
-                    ${
-                        p.points
-                            .map(({x, y}) => `(xy ${p.xy(x, y)})`)
-                            .join('\n')
-                    }
+                    ${p.points
+                      .map(({ x, y }) => `(xy ${p.xy(x, y)})`)
+                      .join("\n")}
                 )
             )
         )
-    `
-}
+    `,
+};

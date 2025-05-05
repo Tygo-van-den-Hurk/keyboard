@@ -1,9 +1,9 @@
 module.exports = {
-    params: {
-        pos: { type: 'net', value: 'pos' },
-        neg: { type: 'net', value: 'neg' },
-    },
-    body: p => `
+  params: {
+    pos: { type: "net", value: "pos" },
+    neg: { type: "net", value: "neg" },
+  },
+  body: (p) => `
         (footprint "Connector_JST:JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal"
             ${p.at}
             (descr "JST PH series connector, S2B-PH-K (http://www.jst-mfg.com/product/pdf/eng/ePH.pdf), generated with kicad-footprint-generator")
@@ -85,5 +85,5 @@ module.exports = {
             (pad "1" thru_hole roundrect (at 0 0 ${p.rot}) (size 1.2 1.75) (drill 0.75) (layers "*.Cu" "*.Mask") (roundrect_rratio 0.208333) ${p.pos.str})
             (pad "2" thru_hole oval (at 2 0 ${p.rot}) (size 1.2 1.75) (drill 0.75) (layers "*.Cu" "*.Mask") ${p.neg.str})
         )
-    `
-}
+    `,
+};

@@ -1,10 +1,10 @@
 module.exports = {
-    params: {
-        designator: 'T',
-        from: { type: 'net', value: 'from' },
-        to: { type: 'net', value: 'to' },
-    },
-    body: p => `
+  params: {
+    designator: "T",
+    from: { type: "net", value: "from" },
+    to: { type: "net", value: "to" },
+  },
+  body: (p) => `
         (module Button_Switch_SMD:SW_SPDT_PCM12 (layer F.Cu) (tedit 5A02FC95)
             ${p.at /* parametric position */}
             (descr "Ultraminiature Surface Mount Slide Switch, right-angle, https://www.ckswitches.com/media/1424/pcm.pdf")
@@ -57,5 +57,5 @@ module.exports = {
             (pad "" smd rect (at 3.65 -0.78 ${p.rot}) (size 1 0.8) (layers B.Cu B.Paste B.Mask))
 
         )
-    `
-}
+    `,
+};

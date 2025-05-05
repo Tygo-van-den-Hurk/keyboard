@@ -1,11 +1,11 @@
 module.exports = {
-    params: {
-        designator: 'S',
-        reverse: true,
-        r1: { type: 'net', value: 'r1' },
-        r2: { type: 'net', value: 'r2' },
-    },
-    body: p => `
+  params: {
+    designator: "S",
+    reverse: true,
+    r1: { type: "net", value: "r1" },
+    r2: { type: "net", value: "r2" },
+  },
+  body: (p) => `
         (footprint 434121025816 (layer F.Cu) (tedit 63B6D2D4)
             ${p.at /* parametric position */}
             (descr "<b>WS-TASV</B><BR>SMT Tact Switch 6.0x3.8 mm,2 pins")
@@ -43,6 +43,5 @@ module.exports = {
             (pad 1 thru_hole rect (at -3.25 0.0 ${p.rot}) (size 1.5 1.4) (drill 0.3) (layers *.Cu *.Mask) ${p.r1.str})
             (pad 2 thru_hole rect (at 3.25 0.0 ${p.rot}) (size 1.5 1.4) (drill 0.3) (layers *.Cu *.Mask) ${p.r2.str})
         )
-    `
-}
-
+    `,
+};

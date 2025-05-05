@@ -4,44 +4,44 @@
 //    To orient the MCU down, meaning power led faces the pcb, bridge the pads on the opposite side of the pcb
 
 module.exports = {
-    params: {
-        designator: 'MCU',
-        RAW: {type: 'net', value: 'RAW'},
-        GND: {type: 'net', value: 'GND'},
-        RST: {type: 'net', value: 'RST'},
-        VCC: {type: 'net', value: 'VCC'},
-        P21: {type: 'net', value: 'P21'},
-        P20: {type: 'net', value: 'P20'},
-        P19: {type: 'net', value: 'P19'},
-        P18: {type: 'net', value: 'P18'},
-        P15: {type: 'net', value: 'P15'},
-        P14: {type: 'net', value: 'P14'},
-        P16: {type: 'net', value: 'P16'},
-        P10: {type: 'net', value: 'P10'},
-        P1: {type: 'net', value: 'P1'},
-        P0: {type: 'net', value: 'P0'},
-        P2: {type: 'net', value: 'P2'},
-        P3: {type: 'net', value: 'P3'},
-        P4: {type: 'net', value: 'P4'},
-        P5: {type: 'net', value: 'P5'},
-        P6: {type: 'net', value: 'P6'},
-        P7: {type: 'net', value: 'P7'},
-        P8: {type: 'net', value: 'P8'},
-        P9: {type: 'net', value: 'P9'}
-    },
-    body: p => {
-        return `
+  params: {
+    designator: "MCU",
+    RAW: { type: "net", value: "RAW" },
+    GND: { type: "net", value: "GND" },
+    RST: { type: "net", value: "RST" },
+    VCC: { type: "net", value: "VCC" },
+    P21: { type: "net", value: "P21" },
+    P20: { type: "net", value: "P20" },
+    P19: { type: "net", value: "P19" },
+    P18: { type: "net", value: "P18" },
+    P15: { type: "net", value: "P15" },
+    P14: { type: "net", value: "P14" },
+    P16: { type: "net", value: "P16" },
+    P10: { type: "net", value: "P10" },
+    P1: { type: "net", value: "P1" },
+    P0: { type: "net", value: "P0" },
+    P2: { type: "net", value: "P2" },
+    P3: { type: "net", value: "P3" },
+    P4: { type: "net", value: "P4" },
+    P5: { type: "net", value: "P5" },
+    P6: { type: "net", value: "P6" },
+    P7: { type: "net", value: "P7" },
+    P8: { type: "net", value: "P8" },
+    P9: { type: "net", value: "P9" },
+  },
+  body: (p) => {
+    return `
             (module ProMicro (layer F.Cu) (tedit 6135B927)
             ${p.at /* parametric position */}
 
-            ${'' /* footprint description, tags and reference */}
+            ${"" /* footprint description, tags and reference */}
             (descr "Solder-jumper reversible Pro Micro footprint")
             (tags "promicro ProMicro reversible solder jumper")
             (fp_text reference "${p.ref}" (at -16.256 -0.254 ${p.rot + 90}) (layer F.SilkS) ${p.ref_hide}
             (effects (font (size 1 1) (thickness 0.15)))
             )
 
-            ${''/* extra border around "RAW", in case the rectangular shape is not distinctive enough */}
+            ${"" /* extra border around "RAW", in case the rectangular shape is not distinctive enough */}
             (fp_line (start -15.24 6.35) (end -12.7 6.35) (layer F.SilkS) (width 0.15))
             (fp_line (start -15.24 6.35) (end -15.24 8.89) (layer F.SilkS) (width 0.15))
             (fp_line (start -12.7 6.35) (end -12.7 8.89) (layer F.SilkS) (width 0.15))
@@ -51,7 +51,7 @@ module.exports = {
             (fp_line (start -12.7 -6.35) (end -12.7 -8.89) (layer B.SilkS) (width 0.15))
             (fp_line (start -12.7 -8.89) (end -15.24 -8.89) (layer B.SilkS) (width 0.15))
 
-            ${''/* illustration of the (possible) USB port overhang */}
+            ${"" /* illustration of the (possible) USB port overhang */}
             (fp_line (start -19.304 -3.81) (end -14.224 -3.81) (layer Dwgs.User) (width 0.15))
             (fp_line (start -19.304 3.81) (end -19.304 -3.81) (layer Dwgs.User) (width 0.15))
             (fp_line (start -14.224 3.81) (end -19.304 3.81) (layer Dwgs.User) (width 0.15))
@@ -1363,7 +1363,6 @@ module.exports = {
             (via (at ${p.xy(11.43, -0.762)}) (size 0.8) (drill 0.4) (layers "F.Cu" "B.Cu") (net ${p.P16.index}))
             (via (at ${p.xy(13.97, 0.762)}) (size 0.8) (drill 0.4) (layers "F.Cu" "B.Cu") (net ${p.P9.index}))
             (via (at ${p.xy(13.97, -0.762)}) (size 0.8) (drill 0.4) (layers "F.Cu" "B.Cu") (net ${p.P10.index}))
-        `
-    }
-}
-
+        `;
+  },
+};

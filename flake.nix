@@ -6,6 +6,14 @@
 
     flake-utils.url = "github:numtide/flake-utils";
 
+    pre-commit-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
     flake-compat = {
       url = "github:edolstra/flake-compat";
       flake = false;
@@ -29,6 +37,16 @@
         pkgs = import nixpkgs { inherit system; };
         inherit (nixpkgs) lib;
         treefmtEval = treefmt-nix.lib.evalModule pkgs ./.config/treefmt.nix;
+        pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
+          src = ./.;
+          hooks.nix-flake-check = {
+            enable = true;
+            name = "Nix Flake Check";
+            entry = "nix flake check";
+            pass_filenames = false;
+            stages = [ "pre-push" ];
+          };
+        };
 
       in
       rec {
@@ -48,18 +66,6 @@
         devShells =
           let
 
-            shellHook = ''
-              # if the terminal supports color.
-              if [[ -n "$(tput colors)" && "$(tput colors)" -gt 2 ]]; then
-                export PS1="(\033[1m\033[35mDev-Shell\033[0m) $PS1"
-              else
-                export PS1="(Dev-Shell) $PS1"
-              fi
-
-              unset shellHook
-              unset buildInputs
-            '';
-
             hardwareBuildInputs = (with pkgs; [ kicad ]) ++ (with self.packages.${system}; [ ergogen ]);
             softwareBuildInputs = with pkgs; [ ];
 
@@ -68,17 +74,17 @@
 
             default = pkgs.mkShell {
               buildInputs = hardwareBuildInputs ++ softwareBuildInputs;
-              inherit shellHook;
+              inherit (pre-commit-check) shellHook;
             };
 
             hardware = pkgs.mkShell {
               buildInputs = hardwareBuildInputs;
-              inherit shellHook;
+              inherit (pre-commit-check) shellHook;
             };
 
             software = pkgs.mkShell {
               buildInputs = softwareBuildInputs;
-              inherit shellHook;
+              inherit (pre-commit-check) shellHook;
             };
           };
 

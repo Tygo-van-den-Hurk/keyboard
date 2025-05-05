@@ -1,19 +1,18 @@
-# Drill and Gerber files
-**/*.gbr
-**/*.gbrjob
-**/*.drl
+### Git Ignore list
+
+# pre-commit hook config
+.pre-commit-config.yaml
 
 # direnv
 **/.direnv
 
 # Nix
 **/result
-
-# NPM
-**/node_modules
+**/result-*
 
 # Ergogen
 **/output
+**/dist
 
 # Kicad
 **/*_autosave*
@@ -21,3 +20,8 @@
 **/*-backups
 **/\~*
 **/*.zip
+
+# Drill and Gerber files
+**/*.gbr
+**/*.gbrjob
+**/*.drl

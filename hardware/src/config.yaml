@@ -162,7 +162,6 @@ pcbs.production:
       layer: Eco1.User
 
   footprints:
-
     #` mounting holes
     mounting_hole_top_right:
       what: mounting_hole_ergogen
@@ -308,5 +307,4 @@ pcbs.production:
         ref: matrix_inner_home
         shift: [-64, -21.11]
         rotate: 285.60
-
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #

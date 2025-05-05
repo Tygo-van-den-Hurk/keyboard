@@ -2,12 +2,12 @@
 // TODO add more sizes as param?
 module.exports = {
   nets: {
-      net: undefined
+    net: undefined,
   },
   params: {
-      class: 'HOLE',
+    class: "HOLE",
   },
-  body: p => `
+  body: (p) => `
   (module "MountingHole_2.2mm_M2_Pad_Via" (version 20210722) (generator pcbnew) (layer "F.Cu")
     (tedit 56DDB9C7)
     ${p.at /* parametric position */}
@@ -27,5 +27,5 @@ module.exports = {
     (pad "1" thru_hole circle locked (at -1.166726 1.166726) (size 0.7 0.7) (drill 0.4) (layers *.Cu *.Mask) (tstamp 95ab0420-a56b-46ee-98ad-5072a1a93a6f))
     (pad "1" thru_hole circle locked (at 1.65 0) (size 0.7 0.7) (drill 0.4) (layers *.Cu *.Mask) (tstamp cde0acf2-b3b4-46de-9f6e-3ab519744000))
     (pad "1" thru_hole circle locked (at 0 -1.65) (size 0.7 0.7) (drill 0.4) (layers *.Cu *.Mask) (tstamp ff0de415-ae11-46fb-b780-c24aee621212))
-  )`
-}
+  )`,
+};

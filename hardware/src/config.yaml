@@ -37,45 +37,45 @@ points:
         outer:
           rows.bottom.skip: true
           rows.top.skip: true
-          key.col_net: P6
+          key.col_net: P14
         pinky.key:
-          col_net: P7
+          col_net: P15
         ring.key:
           splay: -5
           origin: [-12, -19]
           stagger: 12
-          col_net: P8
+          col_net: P18
         middle.key:
           stagger: 5
-          col_net: P9
+          col_net: P19
         index.key:
           stagger: -6
-          col_net: P21
+          col_net: P20
         inner.key:
           stagger: -2
-          col_net: P20
+          col_net: P21
       rows:
         bottom:
-          row_net: P4
+          row_net: P6
         home:
-          row_net: P0
+          row_net: P5
         top:
-          row_net: P1
+          row_net: P4
     thumbfan:
       anchor:
         ref: matrix_inner_bottom
         shift: [-22, -23]
       columns:
         near.key:
-          col_net: P9
+          col_net: P19
         home.key:
-          col_net: P21
-        far.key:
           col_net: P20
+        far.key:
+          col_net: P21
           width: 1.5kx
       rows:
         thumb:
-          row_net: P5
+          row_net: P7
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Outlines ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
@@ -111,9 +111,9 @@ outlines:
         - ref: matrix_inner_top
           shift: [0.5px, 0.5py]
         - ref: matrix_inner_top
-          shift: [1.5px, 0.5py]
+          shift: [1.525px, 0.5py]
         - ref: matrix_inner_top
-          shift: [1.5px, -2.0py]
+          shift: [1.525px, -2.0py]
         - ref: thumbfan_far_thumb
           shift: [0.5px, 0.5py]
         - ref: thumbfan_far_thumb

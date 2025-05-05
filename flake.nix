@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    
+
     flake-utils.url = "github:numtide/flake-utils";
 
     flake-compat = {
@@ -27,14 +27,25 @@
       let
 
         pkgs = import nixpkgs { inherit system; };
+        inherit (nixpkgs) lib;
         treefmtEval = treefmt-nix.lib.evalModule pkgs ./.config/treefmt.nix;
 
       in
       rec {
 
-        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Nix Develop ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Nix Flake Check ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
-        devShell = pkgs.mkShell {
+        checks = packages // {
+          formatting = treefmtEval.config.build.check self;
+        };
+
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Nix Fmt ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+
+        formatter = treefmtEval.config.build.wrapper;
+
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Nix Develop ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+
+        devShells.default = pkgs.mkShell {
 
           buildInputs = (with pkgs; [ kicad ]) ++ (with self.packages.${system}; [ ergogen ]);
 
@@ -42,7 +53,7 @@
             # if the terminal supports color.
             if [[ -n "$(tput colors)" && "$(tput colors)" -gt 2 ]]; then
               export PS1="(\033[1m\033[35mDev-Shell\033[0m) $PS1"
-            else 
+            else
               export PS1="(Dev-Shell) $PS1"
             fi
 
@@ -51,9 +62,11 @@
           '';
         };
 
-        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Nix Run ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Nix Run ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
         apps = {
+
+          #| ---------------------------------------------- Hardware ----------------------------------------------- |#
 
           update-pcb = {
             type = "app";
@@ -78,23 +91,59 @@
               ''
             );
           };
-
         };
 
-        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Nix Build ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Nix Build ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
-        packages = {
+        packages = rec {
 
-          #| Hardware
+          default = pkgs.stdenv.mkDerivation rec {
+            name = "pcb";
+            src = ./.;
+            installPhase = ''
+              runHook preInstall
+
+              mkdir --parents $out
+              cp --recursive ${hardware} $out/hardware
+              cp --recursive ${software} $out/software
+
+              runHook postInstall
+            '';
+          };
+
+          #| ---------------------------------------------- Software ----------------------------------------------- |#
+
+          software = pkgs.stdenv.mkDerivation rec {
+            name = "pcb";
+            src = ./software;
+
+            buildPhase = ''
+              runHook preBuild
+
+              # ...
+
+              runHook postBuild
+            '';
+
+            installPhase = ''
+              runHook preInstall
+
+              mkdir --parents $out
+
+              runHook postInstall
+            '';
+          };
+
+          #| ---------------------------------------------- Hardware ----------------------------------------------- |#
 
           hardware = pkgs.stdenv.mkDerivation rec {
             name = "pcb";
-            src = ./hardware;
+            src = ./hardware/src;
 
             buildPhase = ''
-              runHook preBuild 
+              runHook preBuild
 
-              ${self.packages.${system}.ergogen}/bin/ergogen --clean --output output --debug src
+              ${ergogen}/bin/ergogen --clean --output output --debug .
 
               runHook postBuild
             '';
@@ -111,13 +160,12 @@
 
           pcbs = pkgs.stdenv.mkDerivation rec {
             name = "pcb";
-            src = ./hardware;
-
+            src = ./hardware/src;
             installPhase = ''
               runHook preInstall
 
               mkdir --parents $out
-              cp --recursive ${self.packages.${system}.hardware}/pcbs/* $out
+              cp --recursive ${hardware}/pcbs/* $out
 
               runHook postInstall
             '';
@@ -125,13 +173,12 @@
 
           outlines = pkgs.stdenv.mkDerivation rec {
             name = "pcb";
-            src = ./hardware;
-
+            src = ./hardware/src;
             installPhase = ''
               runHook preInstall
 
               mkdir --parents $out
-              cp --recursive ${self.packages.${system}.hardware}/outlines/* $out
+              cp --recursive ${hardware}/outlines/* $out
 
               runHook postInstall
             '';
@@ -139,13 +186,12 @@
 
           points = pkgs.stdenv.mkDerivation rec {
             name = "pcb";
-            src = ./hardware;
-
+            src = ./hardware/src;
             installPhase = ''
               runHook preInstall
 
               mkdir --parents $out
-              cp --recursive ${self.packages.${system}.hardware}/points/* $out
+              cp --recursive ${hardware}/points/* $out
 
               runHook postInstall
             '';
@@ -153,19 +199,18 @@
 
           cases = pkgs.stdenv.mkDerivation rec {
             name = "pcb";
-            src = ./hardware;
-
+            src = ./hardware/src;
             installPhase = ''
               runHook preInstall
 
               mkdir --parents $out
-              cp --recursive ${self.packages.${system}.hardware}/cases/* $out
+              cp --recursive ${hardware}/cases/* $out
 
               runHook postInstall
             '';
           };
 
-          #| Dependencies
+          #| --------------------------------------------- Dependencies -------------------------------------------- |#
 
           ergogen = pkgs.buildNpmPackage {
             pname = "ergogen";
@@ -201,17 +246,7 @@
           };
         };
 
-        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Nix Flake Check ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
-
-        checks = packages // {
-          formatting = treefmtEval.config.build.check self;
-        };
-
-        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Nix Fmt ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
-
-        formatter = treefmtEval.config.build.wrapper;
-
-        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
       }
     );
 }

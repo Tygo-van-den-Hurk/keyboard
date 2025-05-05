@@ -162,6 +162,34 @@ pcbs.production:
       layer: Eco1.User
 
   footprints:
+
+    #` mounting holes
+    mounting_hole_top_right:
+      what: mounting_hole_ergogen
+      where:
+        ref: matrix_middle_top
+      adjust:
+        shift: [12, 6]
+    mounting_hole_bottom_right:
+      what: mounting_hole_ergogen
+      where:
+        ref: thumbfan_far_thumb
+      adjust:
+        shift: [-0, 19]
+    mounting_hole_top_left:
+      what: mounting_hole_ergogen
+      where:
+        ref: matrix_outer_home
+      adjust:
+        shift: [2.5, 15]
+    mounting_hole_bottom_left:
+      what: mounting_hole_ergogen
+      where:
+        ref: matrix_outer_home
+      adjust:
+        shift: [2.5, -15]
+
+    #` diodes
     diode:
       what: sod-123w
       where: true
@@ -169,8 +197,10 @@ pcbs.production:
         from: "{{name}}"
         to: "{{row_net}}"
       adjust:
-        shift: [-7.6, -1.6]
-        rotate: 90
+        shift: [0, -5]
+        rotate: 180
+
+    #` choc switches
     choc:
       what: choc
       where: true
@@ -182,7 +212,6 @@ pcbs.production:
         to: "{{name}}"
 
     #` Micro controller
-
     promicro:
       what: promicro_pretty
       where:
@@ -192,7 +221,6 @@ pcbs.production:
         rotate: -90
 
     #` Reset switch
-
     wuerth-434121025816:
       what: wuerth-434121025816
       where:
@@ -204,7 +232,6 @@ pcbs.production:
         r2: GND
 
     #` Text
-
     front_text: &text
       what: text
       where: &textWhere
@@ -226,7 +253,6 @@ pcbs.production:
         justify: left mirror
 
     #` TRRS Connector
-
     connector:
       what: trrs
       params:
@@ -282,4 +308,5 @@ pcbs.production:
         ref: matrix_inner_home
         shift: [-64, -21.11]
         rotate: 285.60
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #

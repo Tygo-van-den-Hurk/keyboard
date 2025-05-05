@@ -1,4 +1,7 @@
 
+# direnv
+**/.direnv
+
 # Nix
 **/result
 
@@ -8,7 +11,7 @@
 # Ergogen
 **/output
 
-# Kicad 
+# Kicad
 **/*_autosave*
 **/fp-info-cache
 **/*-backups

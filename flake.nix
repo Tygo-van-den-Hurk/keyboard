@@ -3,7 +3,14 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    
     flake-utils.url = "github:numtide/flake-utils";
+
+    flake-compat = {
+      url = "github:edolstra/flake-compat";
+      flake = false;
+    };
+
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs = {
